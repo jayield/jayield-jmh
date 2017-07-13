@@ -54,7 +54,7 @@ public class WeatherWebApi {
     static {
         try {
             URL keyFile = getSystemResource("worldweatheronline-app-key.txt");
-            if(keyFile != null) {
+            if(keyFile == null) {
                 /**
                  * If you GOT a KEY from developer.worldweatheronline.com,
                  * then place it in src/main/resources/worldweatheronline-app-key.txt"
