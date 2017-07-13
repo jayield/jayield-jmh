@@ -31,6 +31,7 @@ import java.util.Spliterator;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
+import static java.lang.ClassLoader.getSystemResource;
 import static java.util.stream.StreamSupport.stream;
 
 /**
@@ -52,10 +53,13 @@ public class WeatherWebApi {
 
     static {
         try {
-            URL keyFile = ClassLoader.getSystemResource("worldweatheronline-app-key.txt");
-            if(keyFile == null) {
-                throw new IllegalStateException(
-                        "YOU MUST GOT a KEY in developer.worldweatheronline.com and place it in src/main/resources/worldweatheronline-app-key.txt");
+            URL keyFile = getSystemResource("worldweatheronline-app-key.txt");
+            if(keyFile != null) {
+                /**
+                 * If you GOT a KEY from developer.worldweatheronline.com,
+                 * then place it in src/main/resources/worldweatheronline-app-key.txt"
+                 */
+                WEATHER_TOKEN = "";
             } else {
                 InputStream keyStream = keyFile.openStream();
                 try (BufferedReader reader = new BufferedReader(new InputStreamReader(keyStream))) {

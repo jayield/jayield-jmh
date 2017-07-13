@@ -19,7 +19,7 @@ public class StreamQueries {
 
     /**
      * Merges series of adjacent elements.
-     * Valid of sequences with non null elements.
+     * Valid for sequences with non null elements.
      */
     public static <T> Stream<T> collapse(Stream<T> source) {
         return StreamSupport.stream(
@@ -52,7 +52,7 @@ public class StreamQueries {
 
     /**
      * Merges series of adjacent elements.
-     * Valid of sequences with non null elements.
+     * Valid for sequences with non null elements.
      *
      * @param <T>
      */
