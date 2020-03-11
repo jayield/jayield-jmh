@@ -16,3 +16,4 @@ worldweatheronline-app-key.txt
 
 # Ignore InteliJ
 .idea
+.iml

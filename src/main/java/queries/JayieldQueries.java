@@ -1,7 +1,7 @@
 package queries;
 
-import org.jayield.Series;
-import org.jayield.Traversable;
+import org.jayield.Query;
+import org.jayield.Traverser;
 
 /**
  * @author Miguel Gamboa
@@ -9,7 +9,7 @@ import org.jayield.Traversable;
  */
 public class JayieldQueries {
 
-    public static <U> Traversable<U> oddLines(Series<U> src) {
+    public static <U> Traverser<U> oddLines(Query<U> src) {
         return yield -> {
             final boolean[] isOdd = {false};
             src.traverse(item -> {
@@ -19,7 +19,7 @@ public class JayieldQueries {
         };
     }
 
-    public static <U> Traversable<U> collapse(Series<U> src) {
+    public static <U> Traverser<U>  collapse(Query<U> src) {
         return yield -> {
             final Object[] prev = {null};
             src.traverse(item -> {

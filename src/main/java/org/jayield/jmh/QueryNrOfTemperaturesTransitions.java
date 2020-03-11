@@ -1,6 +1,6 @@
 package org.jayield.jmh;
 
-import org.jayield.Series;
+import org.jayield.Query;
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.BenchmarkMode;
 import org.openjdk.jmh.annotations.Fork;
@@ -39,12 +39,12 @@ public class QueryNrOfTemperaturesTransitions {
 
     @Benchmark
     public long nrOfTransitionsJayield(DataSource src) {
-        return Series.of(src.data)
+        return Query.of(src.data)
                 .filter(s -> s.charAt(0) != '#')   // Filter comments
                 .skip(1)                           // Skip line: Not available
-                .traverseWith(JayieldQueries::oddLines) // Filter hourly info
+                .then(JayieldQueries::oddLines) // Filter hourly info
                 .map(line -> line.substring(14, 16))
-                .traverseWith(JayieldQueries::collapse)
+                .then(JayieldQueries::collapse)
                 .count();
     }
 }

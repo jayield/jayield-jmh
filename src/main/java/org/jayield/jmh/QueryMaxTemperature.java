@@ -5,7 +5,7 @@ import com.codepoetics.protonpack.StreamUtils;
 import com.google.common.collect.FluentIterable;
 import com.google.common.collect.Ordering;
 import one.util.streamex.StreamEx;
-import org.jayield.Series;
+import org.jayield.Query;
 import org.jooq.lambda.Seq;
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.BenchmarkMode;
@@ -136,10 +136,10 @@ public class QueryMaxTemperature {
 
     @Benchmark
     public int maxTempJayield(DataSource src) {
-        return Series.of(src.data)
+        return Query.of(src.data)
                 .filter(s -> s.charAt(0) != '#')   // Filter comments
                 .skip(1)                           // Skip line: Not available
-                .traverseWith(JayieldQueries::oddLines) // Filter hourly info
+                .then(JayieldQueries::oddLines) // Filter hourly info
                 .mapToInt(line -> parseInt(line.substring(14, 16)))
                 .max()
                 .getAsInt();
