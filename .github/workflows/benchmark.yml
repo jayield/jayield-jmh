@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        java: [ 1.8 ]
+        java: [ 11 ]
     name: Run benchmarks
     steps:
       - uses: actions/checkout@master
