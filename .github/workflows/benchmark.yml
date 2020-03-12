@@ -12,10 +12,12 @@ jobs:
         java: [ 11 ]
     name: Run benchmarks
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@v2
+        with:
+          ref: bench
       - name: Setup java
         uses: actions/setup-java@v1
         with:
           java-version: ${{ matrix.java }}
       - run: mvn clean install
-      - run: java -jar target/benchmarks.jar -f 5
+      - run: java -jar target/benchmarks.jar -f 5 -r 5 -w 1
