@@ -3,7 +3,7 @@ package org.jayield.jmh;
 import com.aol.cyclops.control.ReactiveSeq;
 import com.google.common.collect.FluentIterable;
 import one.util.streamex.StreamEx;
-import org.jayield.Query;
+import org.jayield.Series;
 import org.jooq.lambda.Seq;
 import org.testng.annotations.Test;
 
@@ -108,8 +108,8 @@ public class FlatMapBreakingTest {
     
     @Test(timeOut = 1000)
     public void testFlatMapBreakingJayield() {
-        int first = Query.of(7)
-                .flatMap(e -> Query.iterate(e, i->i+1))
+        int first = Series.of(7)
+                .flatMap(e -> Series.iterate(e, i->i+1))
                 .findFirst()
                 .get();
         assertEquals(first, 7);

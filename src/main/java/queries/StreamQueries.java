@@ -48,15 +48,6 @@ public class StreamQueries {
             if (!source.tryAdvance(doNothing)) return false;
             return source.tryAdvance(action);
         }
-
-        @Override
-        public void forEachRemaining(Consumer<? super T> action) {
-            isOdd = false;
-            source.forEachRemaining(item -> {
-                if(isOdd) action.accept(item );
-                isOdd = !isOdd;
-            });
-        }
     }
 
     /**
@@ -71,7 +62,7 @@ public class StreamQueries {
         private T curr = null;
 
         StreamCollapse(Spliterator<T> source) {
-            super(Long.MAX_VALUE, source.characteristics() & (~(SIZED | SUBSIZED)));
+            super(-1, source.characteristics());
             this.source = source;
         }
 
@@ -79,8 +70,10 @@ public class StreamQueries {
         public boolean tryAdvance(Consumer<? super T> action) {
             T prev = curr;
             boolean hasNext;
-            while ((hasNext = source.tryAdvance(this)) && curr.equals(prev)) { }
-            if(hasNext) action.accept(curr);
+            while ((hasNext = source.tryAdvance(this)) && curr.equals(prev)) {
+            }
+            if(hasNext)
+                action.accept(curr);
             return hasNext;
         }
 

@@ -3,7 +3,7 @@ package org.jayield.jmh;
 import com.aol.cyclops.control.ReactiveSeq;
 import com.codepoetics.protonpack.StreamUtils;
 import one.util.streamex.StreamEx;
-import org.jayield.Query;
+import org.jayield.Series;
 import org.jooq.lambda.Seq;
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.BenchmarkMode;
@@ -127,10 +127,10 @@ public class QueryNrOfDistinctTemperatures {
 
     @Benchmark
     public long nrOfTempsJayield(DataSource src) {
-        return Query.of(src.data)
+        return Series.of(src.data)
                 .filter(s -> s.charAt(0) != '#')   // Filter comments
                 .skip(1)                           // Skip line: Not available
-                .then(JayieldQueries::oddLines) // Filter hourly info
+                .traverseWith(JayieldQueries::oddLines) // Filter hourly info
                 .map(line -> line.substring(14, 16))
                 .distinct()
                 .count();
