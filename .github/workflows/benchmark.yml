@@ -18,4 +18,4 @@ jobs:
         with:
           java-version: ${{ matrix.java }}
       - run: mvn clean install
-      - run: java -jar target/benchmarks.jar
+      - run: java -jar target/benchmarks.jar -f 5
